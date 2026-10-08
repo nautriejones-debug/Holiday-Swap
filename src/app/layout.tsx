@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import SiteHeader from "@/components/SiteHeader";
+
+// Every page depends on who is logged in, so never serve a cached copy.
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Holiday Swap",
@@ -20,7 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <SiteHeader />
+        {children}
+      </body>
     </html>
   );
 }

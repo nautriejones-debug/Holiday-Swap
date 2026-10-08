@@ -12,3 +12,10 @@ npm run dev
 ```
 
 Then open http://localhost:3000.
+
+To run it with real accounts, copy `.env.example` to `.env.local` and fill in your Supabase values.
+
+## Database
+
+Database setup lives in the `supabase/` folder. Each file is pasted into
+Supabase > SQL Editor and run once, in number order.
