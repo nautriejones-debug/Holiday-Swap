@@ -21,3 +21,13 @@ export function friendlyError(message: string | undefined): string {
     return "Couldn't reach the server. Check your connection and try again.";
   return message || "Something went wrong. Please try again.";
 }
+
+// Errors from asking Supabase to text a verification code.
+export function sendCodeError(message: string | undefined): string {
+  const m = (message ?? "").toLowerCase();
+  if (m.includes("already") || m.includes("exists"))
+    return "That phone number is already used by another account.";
+  if (m.includes("rate limit") || m.includes("too many") || m.includes("security purposes"))
+    return "Too many tries in a short time. Please wait a minute and try again.";
+  return "We couldn't send a text to that number. Check it and try again.";
+}

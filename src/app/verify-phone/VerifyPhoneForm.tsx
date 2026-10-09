@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { friendlyError } from "@/lib/errors";
+import { friendlyError, sendCodeError } from "@/lib/errors";
 import { formatUsPhone, toUsE164 } from "@/lib/phone";
 import {
   buttonClass,
@@ -28,7 +28,8 @@ export default function VerifyPhoneForm() {
     const { error } = await createClient().auth.updateUser({ phone: e164 });
     setBusy(false);
     if (error) {
-      setError(friendlyError(error.message));
+      // Show the technical reason too, so a failed text is easy to diagnose during the beta.
+      setError(`${sendCodeError(error.message)} (Details: ${error.message})`);
       return false;
     }
     return true;
